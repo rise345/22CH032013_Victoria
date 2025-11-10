@@ -1,11 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Emotion Detector</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Emotion Detector</title>
 </head>
 <body>
-    <h1>Welcome to the Face Emotion Detector</h1>
-    <p>This is the index.html page inside the templates folder.</p>
-</body>
-</html> 
 
+    <header>
+        <h1>Face Emotion Detector</h1>
+        <p>Upload your photo to detect your emotion using AI.</p>
+    </header>
+
+    <main>
+        <section>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <fieldset>
+                    <legend>User Information</legend>
+
+                    <div>
+                        <label for="name">Full Name:</label><br>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div>
+                        <label for="email">Email:</label><br>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Image Upload</legend>
+                    <div>
+                        <label for="image">Upload Image:</label><br>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                    </div>
+                </fieldset>
+
+                <div>
+                    <input type="submit" value="Detect Emotion">
+                </div>
+            </form>
+        </section>
+
+        {% if emotion %}
+        <section>
+            <h2>Detection Result</h2>
+            <p>{{ name }}, your detected emotion is: <strong>{{ emotion }}</strong></p>
+            {% if image_file %}
+            <figure>
+                <img src="{{ url_for('static', filename='uploads/' + image_file) }}" alt="Uploaded Image" width="200">
+                <figcaption>Uploaded Image</figcaption>
+            </figure>
+            {% endif %}
+        </section>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Face Emotion Detector</p>
+    </footer>
+
+</body>
+</html>
